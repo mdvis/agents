@@ -3,8 +3,11 @@
 
 set -euo pipefail
 
-# 源目录
-SOURCE_DIR="$HOME/.dotfiles/agents"
+# 获取脚本所在目录
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# 源目录（使用脚本所在目录）
+SOURCE_DIR="$SCRIPT_DIR"
 
 # 定义目标工具及其配置目录（统一使用 ~/.工具名 的格式）
 declare -A TOOLS=(
