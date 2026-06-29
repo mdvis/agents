@@ -9,16 +9,30 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # 源目录（使用脚本所在目录）
 SOURCE_DIR="$SCRIPT_DIR"
 
-# 定义目标工具及其配置目录（统一使用 ~/.工具名 的格式）
-declare -A TOOLS=(
-    ["claude"]="$HOME/.claude"
-    ["pi"]="$HOME/.pi/agent"
-    ["codex"]="$HOME/.codex"
-    ["workbuddy"]="$HOME/.workbuddy"
-    ["opencode"]="$HOME/.opencode"
-    ["codebuddy"]="$HOME/.codebuddy"
-    ["hermes"]="$HOME/.hermes"
+# 定义支持的工具名称（bash 3.2 兼容，不使用关联数组）
+TOOL_NAMES=(
+    "claude"
+    "pi"
+    "codex"
+    "workbuddy"
+    "opencode"
+    "codebuddy"
+    "hermes"
 )
+
+# 获取工具对应的配置目录（未知工具返回空字符串）
+get_tool_dir() {
+    case "$1" in
+        claude)    echo "$HOME/.claude" ;;
+        pi)        echo "$HOME/.pi/agent" ;;
+        codex)     echo "$HOME/.codex" ;;
+        workbuddy) echo "$HOME/.workbuddy" ;;
+        opencode)  echo "$HOME/.opencode" ;;
+        codebuddy) echo "$HOME/.codebuddy" ;;
+        hermes)    echo "$HOME/.hermes" ;;
+        *)         echo "" ;;
+    esac
+}
 
 # 颜色输出
 GREEN='\033[0;32m'
@@ -134,7 +148,7 @@ show_usage() {
     echo
     echo "工具名称:"
     echo "  如果不指定工具名称，脚本会交互式询问"
-    echo "  可用的工具: ${!TOOLS[@]}"
+    echo "  可用的工具: ${TOOL_NAMES[*]}"
     echo
     echo "示例:"
     echo "  $0 --all                    # 为所有工具创建软链接"
@@ -146,8 +160,8 @@ show_usage() {
 list_tools() {
     echo "支持的工具及其配置目录:"
     echo
-    for tool in "${!TOOLS[@]}"; do
-        echo "  $tool -> ${TOOLS[$tool]}"
+    for tool in "${TOOL_NAMES[@]}"; do
+        echo "  $tool -> $(get_tool_dir "$tool")"
     done
 }
 
@@ -176,13 +190,14 @@ main() {
         fi
 
         if [[ "$REPLY" == "all" ]]; then
-            for tool in "${!TOOLS[@]}"; do
-                create_symlinks "$tool" "${TOOLS[$tool]}"
+            for tool in "${TOOL_NAMES[@]}"; do
+                create_symlinks "$tool" "$(get_tool_dir "$tool")"
             done
         else
             for tool in $REPLY; do
-                if [ -n "${TOOLS[$tool]:-}" ]; then
-                    create_symlinks "$tool" "${TOOLS[$tool]}"
+                local dir="$(get_tool_dir "$tool")"
+                if [ -n "$dir" ]; then
+                    create_symlinks "$tool" "$dir"
                 else
                     log_error "未知工具: $tool"
                 fi
@@ -200,14 +215,15 @@ main() {
             exit 0
             ;;
         -a | --all)
-            for tool in "${!TOOLS[@]}"; do
-                create_symlinks "$tool" "${TOOLS[$tool]}"
+            for tool in "${TOOL_NAMES[@]}"; do
+                create_symlinks "$tool" "$(get_tool_dir "$tool")"
             done
             ;;
         *)
             for tool in "$@"; do
-                if [ -n "${TOOLS[$tool]:-}" ]; then
-                    create_symlinks "$tool" "${TOOLS[$tool]}"
+                local dir="$(get_tool_dir "$tool")"
+                if [ -n "$dir" ]; then
+                    create_symlinks "$tool" "$dir"
                 else
                     log_error "未知工具: $tool"
                     echo "使用 --list 查看支持的工具"
