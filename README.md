@@ -1,13 +1,11 @@
-# Agents Configuration Manager
+# Agents Skills
 
-统一管理 AI Agent 的配置与技能模块。
+跨工具通用的 AI Agent 技能库，遵循 [Agent Skills](https://agentskills.io) 开放标准。
 
 ## 📁 项目结构
 
 ```
 agents/
-├── agents/          # Agent 配置文件
-├── hooks/           # Git hooks（自动提交脚本）
 ├── skills/          # Agent 技能模块（标准 Agent Skills 格式）
 │   ├── generate-operation-manual/  # 操作手册生成
 │   ├── git-commit-helper/          # Git 提交辅助
@@ -19,7 +17,7 @@ agents/
 └── README.md       # 本文件
 ```
 
-> `unit-test-writer` 为单文件 Agent 配置，位于 `agents/unit-test-writer.md`。
+> 本仓库只存放跨工具通用的标准技能。Claude Code 专属配置（subagent、hooks）已拆分至独立仓库维护。
 
 ## 🚀 快速开始
 
@@ -73,12 +71,6 @@ bash scripts/validate-skills.sh
 ```
 
 GitHub Actions（`.github/workflows/validate.yml`）在 `skills/**` 变更时自动运行同样校验，防止不合规技能合入。
-
-## 📌 Hooks
-
-项目内置了 Git hooks，位于 `hooks/` 目录下：
-
-- `auto-commit.sh` — 自动提交脚本
 
 ## ⚙️ 环境要求
 
