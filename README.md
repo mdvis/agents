@@ -16,15 +16,12 @@ agents/
 │   ├── split-documents/            # 文档拆分
 │   └── verify-documents/           # 文档校验
 ├── scripts/         # 维护脚本（技能校验等）
-├── link-agents.sh  # 软链接工具脚本
 └── README.md       # 本文件
 ```
 
 > `unit-test-writer` 为单文件 Agent 配置，位于 `agents/unit-test-writer.md`。
 
 ## 🚀 快速开始
-
-### 方式一：skills CLI 安装（推荐）
 
 本仓库技能遵循 [Agent Skills](https://agentsskills.io) 标准（`SKILL.md` + `name`/`description` frontmatter），可被 [skills CLI](https://skills.sh) 直接安装到 Claude Code、Codex、Cursor、OpenCode 等 75+ 工具：
 
@@ -46,26 +43,6 @@ npx skills add mdvis/agents --list
 ```
 
 安装后可用 `npx skills list` 查看、`npx skills update` 更新。
-
-### 方式二：软链接全部配置
-
-将本仓库整体软链接到各个 AI 工具的配置目录：
-
-```bash
-bash link-agents.sh
-```
-
-该脚本会自动在 `$HOME` 下创建对应的符号链接：
-
-| 工具       | 路径              |
-|------------|-------------------|
-| Claude     | `~/.claude`       |
-| Pi         | `~/.pi/agent`     |
-| Codex      | `~/.codex`        |
-| Workbuddy  | `~/.workbuddy`    |
-| OpenCode   | `~/.opencode`     |
-| CodeBuddy  | `~/.codebuddy`    |
-| Hermes     | `~/.hermes`       |
 
 ## 🛠 Skills（技能模块）
 
@@ -105,9 +82,8 @@ GitHub Actions（`.github/workflows/validate.yml`）在 `skills/**` 变更时自
 
 ## ⚙️ 环境要求
 
-- Bash 3.2+（macOS 自带）
-- macOS / Linux（支持符号链接）
-- Node.js 18+（仅 `npx skills` 安装方式需要）
+- Node.js 18+（`npx skills` 安装方式）
+- macOS / Linux
 
 ## 📄 License
 
