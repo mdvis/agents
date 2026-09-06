@@ -23,7 +23,7 @@ agents/
 
 ## 🚀 快速开始
 
-本仓库技能遵循 [Agent Skills](https://agentsskills.io) 标准（`SKILL.md` + `name`/`description` frontmatter），可被 [skills CLI](https://skills.sh) 直接安装到 Claude Code、Codex、Cursor、OpenCode 等 75+ 工具：
+本仓库技能遵循 [Agent Skills](https://agentskills.io) 标准（`SKILL.md` + `name`/`description` frontmatter），可被 [skills CLI](https://skills.sh) 直接安装到 Claude Code、Codex、Cursor、OpenCode 等 75+ 工具：
 
 ```bash
 # 交互式安装（选择技能与目标工具）
