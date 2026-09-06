@@ -5,7 +5,7 @@
 ## 📁 项目结构
 
 ```
-agents/
+skills/
 ├── skills/          # Agent 技能模块（标准 Agent Skills 格式）
 │   ├── generate-operation-manual/  # 操作手册生成
 │   ├── git-commit-helper/          # Git 提交辅助
@@ -25,19 +25,19 @@ agents/
 
 ```bash
 # 交互式安装（选择技能与目标工具）
-npx skills add mdvis/agents
+npx skills add mdvis/skills
 
 # 全局安装到用户目录（~/.skills，跨项目可用）
-npx skills add mdvis/agents -g
+npx skills add mdvis/skills -g
 
 # 安装指定技能
-npx skills add mdvis/agents --skill git-commit-helper --skill merge-documents
+npx skills add mdvis/skills --skill git-commit-helper --skill merge-documents
 
 # 安装全部技能到全部工具（无交互）
-npx skills add mdvis/agents --all
+npx skills add mdvis/skills --all
 
 # 查看仓库内可用技能
-npx skills add mdvis/agents --list
+npx skills add mdvis/skills --list
 ```
 
 安装后可用 `npx skills list` 查看、`npx skills update` 更新。
